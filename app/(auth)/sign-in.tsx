@@ -121,7 +121,7 @@ export default function SignInScreen() {
               Create one
             </Link>
           </View>
-          <Text style={styles.hint}>Judge email: judge@ata2.demo  /  hold-36</Text>
+          <Text style={styles.hint}>Judge email: judge@thermalguard.demo  /  hold-36</Text>
         </FadeInView>
       </ScrollView>
     </KeyboardAvoidingView>

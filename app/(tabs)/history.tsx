@@ -65,7 +65,7 @@ export default function HistoryScreen() {
         }}>
         {/* ── Header ── */}
         <FadeInView>
-          <Text style={styles.kicker}>ATA² · HISTORY</Text>
+          <Text style={styles.kicker}>ThermalGuard · HISTORY</Text>
           <Text style={styles.title}>Walk log</Text>
         </FadeInView>
 

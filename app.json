@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "ATA²",
+    "name": "ThermalGuard",
     "slug": "ata2",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -17,7 +17,7 @@
       "bundleIdentifier": "com.ata2.coolcorridor",
       "usesAppleSignIn": true,
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "ATA² uses your location to pin the Hold tab if you are in downtown Phoenix. Otherwise it stays on the Civic Space Park demo pin."
+        "NSLocationWhenInUseUsageDescription": "ThermalGuard uses your location to pin the Hold tab if you are in downtown Phoenix. Otherwise it stays on the Civic Space Park demo pin."
       }
     },
     "android": {
@@ -53,7 +53,7 @@
       [
         "expo-location",
         {
-          "locationWhenInUsePermission": "ATA² uses your location to pin the Hold tab if you are in downtown Phoenix. Otherwise it stays on the Civic Space Park demo pin."
+          "locationWhenInUsePermission": "ThermalGuard uses your location to pin the Hold tab if you are in downtown Phoenix. Otherwise it stays on the Civic Space Park demo pin."
         }
       ],
       "expo-secure-store",

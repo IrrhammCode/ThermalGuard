@@ -27,7 +27,7 @@ from ata2.service import (
 DEMO_LAT, DEMO_LON = 33.454, -112.0742
 
 app = FastAPI(
-    title="ATA² Thermal Hold",
+    title="ThermalGuard Thermal Hold",
     version="0.3.0",
     description="FortyGuard 2 m severity + satellite canopy. Agents refuse flat TCM, then split dwell.",
 )

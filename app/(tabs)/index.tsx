@@ -257,7 +257,7 @@ export default function WalkScreen() {
         <Icon name="exclamationmark.triangle.fill" size={28} color={colors.heat} />
         <Text style={styles.errKicker}>BACKEND UNREACHABLE</Text>
         <Text style={styles.hero}>No live heat</Text>
-        <Text style={styles.muted}>ATA² will not invent FortyGuard numbers.</Text>
+        <Text style={styles.muted}>ThermalGuard will not invent FortyGuard numbers.</Text>
         <Text style={styles.url}>{API_URL}</Text>
         <Text style={styles.muted}>{error}</Text>
         <Pressable onPress={reload} style={styles.retry}>
@@ -572,34 +572,31 @@ function headerCopy(phase: Phase, heatCall: boolean) {
   }
   if (phase === 'symptoms') {
     return {
-      kicker: 'ATA² · BODY CHECK',
-      title: 'How do you feel?',
+      kicker: 'ThermalGuard · WALK',
+      title: 'Navigation active',
       deck: 'Current symptoms help the AI agents find the safest route for you right now. Not a diagnosis.',
     };
   }
   if (phase === 'load') {
     return {
-      kicker: 'ATA² · ANALYZE',
-      title: 'Agents reading this walk',
-      deck: '',
+      kicker: 'ThermalGuard · ANALYZE',
+      title: 'Mapping corridor',
     };
   }
   if (phase === 'brief') {
     return {
-      kicker: heatCall ? 'ATA² · INDOOR' : 'ATA² · BRIEFING',
-      title: 'What this walk does to you',
-      deck: '',
+      kicker: heatCall ? 'ThermalGuard · INDOOR' : 'ThermalGuard · BRIEFING',
+      title: heatCall ? 'Danger' : 'Route ready',
     };
   }
   if (phase === 'run') {
     return {
-      kicker: 'ATA² · ON PATH',
-      title: 'Dwell is the dose',
-      deck: '',
+      kicker: 'ThermalGuard · ON PATH',
+      title: 'Head to destination',
     };
   }
   return {
-    kicker: 'ATA² · COMPLETE',
+    kicker: 'ThermalGuard · COMPLETE',
     title: 'Walk saved',
     deck: '',
   };
@@ -625,7 +622,7 @@ function LoadSheet({
     return (
       <View>
         <Text style={styles.heat}>{error}</Text>
-        <Text style={styles.mutedLeft}>ATA² will not invent FortyGuard numbers.</Text>
+        <Text style={styles.mutedLeft}>ThermalGuard will not invent FortyGuard numbers.</Text>
         <AuthButton label="Retry" icon="arrow.clockwise" style={{ marginTop: 16 }} onPress={onRetry} />
       </View>
     );

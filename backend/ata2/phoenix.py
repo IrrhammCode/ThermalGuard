@@ -195,7 +195,7 @@ def phoenix_aoi() -> dict:
         "features": [
             {
                 "type": "Feature",
-                "properties": {"name": "Downtown Phoenix ATA2 demo"},
+                "properties": {"name": "Downtown Phoenix ThermalGuard demo"},
                 "geometry": {"type": "Polygon", "coordinates": [ring]},
             }
         ],

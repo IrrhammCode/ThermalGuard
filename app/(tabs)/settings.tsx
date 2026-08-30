@@ -49,7 +49,7 @@ export default function SettingsScreen() {
         }}>
         {/* ── Header ── */}
         <FadeInView>
-          <Text style={styles.kicker}>ATA²</Text>
+          <Text style={styles.kicker}>ThermalGuard</Text>
           <Text style={styles.title}>Settings</Text>
         </FadeInView>
 
@@ -159,13 +159,13 @@ export default function SettingsScreen() {
 
         {/* ── About ── */}
         <FadeInView delay={180}>
-          <Text style={styles.section}>ABOUT ATA²</Text>
+          <Text style={styles.section}>ABOUT ThermalGuard</Text>
           <View style={styles.group}>
             <View style={styles.aboutContent}>
               <View style={styles.aboutRow}>
                 <Icon name="thermometer.sun.fill" size={16} color={colors.heat} />
                 <Text style={styles.aboutText}>
-                  ATA² does not cool the street. Downtown Phoenix 2 m air is almost flat.
+                  ThermalGuard does not cool the street. Downtown Phoenix 2 m air is almost flat.
                 </Text>
               </View>
               <View style={styles.aboutRow}>
@@ -187,7 +187,7 @@ export default function SettingsScreen() {
         {/* ── Version ── */}
         <FadeInView delay={220}>
           <View style={styles.versionRow}>
-            <Text style={styles.versionText}>ATA² v1.0.0</Text>
+            <Text style={styles.versionText}>ThermalGuard v1.0.0</Text>
             <Text style={styles.versionText}>Expo SDK 54</Text>
           </View>
         </FadeInView>
