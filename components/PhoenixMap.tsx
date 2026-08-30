@@ -214,6 +214,7 @@ const PhoenixMap = forwardRef<MapHandle, PhoenixMapProps>(function PhoenixMap(
         right: 0,
         bottom: 0,
         backgroundColor: colors.bg,
+        zIndex: 0,
       }}
     />
   );
