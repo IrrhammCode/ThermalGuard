@@ -16,7 +16,7 @@ import {
 import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
-import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 function joinLabels<T extends string>(ids: T[], options: { id: T; label: string }[]): string {
@@ -197,18 +197,25 @@ export default function SettingsScreen() {
           <View style={styles.actionRow}>
             <Pressable
               onPress={() => {
-                Alert.alert('Wipe Profile', 'Are you sure you want to delete your health profile?', [
-                  { text: 'Cancel', style: 'cancel' },
-                  {
-                    text: 'Wipe & Sign Out',
-                    style: 'destructive',
-                    onPress: () => {
-                      void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
-                      clear();
-                      signOut();
+                if (Platform.OS === 'web') {
+                  if (window.confirm('Are you sure you want to delete your health profile?')) {
+                    clear();
+                    signOut();
+                  }
+                } else {
+                  Alert.alert('Wipe Profile', 'Are you sure you want to delete your health profile?', [
+                    { text: 'Cancel', style: 'cancel' },
+                    {
+                      text: 'Wipe & Sign Out',
+                      style: 'destructive',
+                      onPress: () => {
+                        void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+                        clear();
+                        signOut();
+                      },
                     },
-                  },
-                ]);
+                  ]);
+                }
               }}
               style={[styles.signOut, { borderColor: colors.border, backgroundColor: 'transparent' }]}>
               <Icon name="trash" size={16} color={colors.muted} />
