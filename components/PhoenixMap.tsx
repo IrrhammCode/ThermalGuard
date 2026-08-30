@@ -83,7 +83,8 @@ const PhoenixMap = forwardRef<MapHandle, PhoenixMapProps>(function PhoenixMap(
 ) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
-  const layersRef = useRef<L.LayerGroup | null>(null);
+  const heatGroupRef = useRef<L.LayerGroup | null>(null);
+  const routeGroupRef = useRef<L.LayerGroup | null>(null);
   const walkerRef = useRef<L.Marker | null>(null);
 
   useImperativeHandle(ref, () => ({
@@ -109,7 +110,8 @@ const PhoenixMap = forwardRef<MapHandle, PhoenixMapProps>(function PhoenixMap(
     });
 
     L.tileLayer(OSM_TILES, { attribution: OSM_ATTR, maxZoom: 19 }).addTo(map);
-    layersRef.current = L.layerGroup().addTo(map);
+    heatGroupRef.current = L.layerGroup().addTo(map);
+    routeGroupRef.current = L.layerGroup().addTo(map);
     mapRef.current = map;
 
     // Fix Leaflet container size after mount
@@ -118,17 +120,17 @@ const PhoenixMap = forwardRef<MapHandle, PhoenixMapProps>(function PhoenixMap(
     return () => {
       map.remove();
       mapRef.current = null;
-      layersRef.current = null;
+      heatGroupRef.current = null;
+      routeGroupRef.current = null;
     };
   }, []);
 
-  // ── Sync overlays to props ───────────────────────────────────────────────
+  // ── Sync Heatmap (Static) ────────────────────────────────────────────────
   useEffect(() => {
-    const group = layersRef.current;
+    const group = heatGroupRef.current;
     if (!group) return;
     group.clearLayers();
 
-    // Heat polygons
     if (overlay && tiles.length) {
       for (const tile of tiles) {
         const value = colorKey === 'felt' ? (tile.felt ?? tile.t2m) : tile.t2m;
@@ -140,6 +142,13 @@ const PhoenixMap = forwardRef<MapHandle, PhoenixMapProps>(function PhoenixMap(
         }).addTo(group);
       }
     }
+  }, [overlay, tiles, heatMin, heatMax, colorKey]);
+
+  // ── Sync Routes and Markers (Changes when walker moves) ──────────────────
+  useEffect(() => {
+    const group = routeGroupRef.current;
+    if (!group) return;
+    group.clearLayers();
 
     // Fast route (dashed gray)
     if (fastCoords.length > 1) {
@@ -178,8 +187,6 @@ const PhoenixMap = forwardRef<MapHandle, PhoenixMapProps>(function PhoenixMap(
       }).addTo(group);
     }
 
-
-
     // Trap marker
     if (trap) {
       L.marker([trap.latitude, trap.longitude], {
@@ -197,7 +204,7 @@ const PhoenixMap = forwardRef<MapHandle, PhoenixMapProps>(function PhoenixMap(
         .bindPopup(`<b>${r.name}</b><br/>${r.indoor ? 'Indoor AC' : 'Park'}`)
         .addTo(group);
     }
-  }, [overlay, tiles, heatMin, heatMax, colorKey, coolCoords, fastCoords, emphasize, origin, dest, trap, refuges]);
+  }, [coolCoords, fastCoords, emphasize, origin, dest, trap, refuges]);
 
   // ── Sync dynamic walker (runs 60fps without clearing map) ───────────────
   useEffect(() => {
