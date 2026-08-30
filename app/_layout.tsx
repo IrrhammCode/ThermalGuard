@@ -120,14 +120,14 @@ const wf = StyleSheet.create({
     gap: 60,
   },
   brand: {
-    maxWidth: 340,
+    maxWidth: 420,
     paddingRight: 20,
   },
   brandTitle: {
     color: colors.cool,
-    fontSize: 48,
+    fontSize: 44,
     fontWeight: '800',
-    letterSpacing: 2,
+    letterSpacing: 1,
   },
   brandSub: {
     color: colors.text,
