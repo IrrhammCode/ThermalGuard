@@ -32,8 +32,36 @@ FIXTURE = Path(__file__).resolve().parent.parent / "fixtures" / "hybrid_samples.
 
 
 def _air_mean() -> float:
+    try:
+        from fortyguard.client import FortyGuardClient
+        from ata2.phoenix import phoenix_aoi, STUDY_DATE, STUDY_HOUR, GRANULARITY_M
+        import os
+        
+        # Avoid blocking Expo Go testing if no API key is set
+        if os.getenv("FORTYGUARD_API_KEY"):
+            client = FortyGuardClient()
+            print("Fetching LIVE heatmap from FortyGuard...")
+            payload = client.create_heatmap(
+                polygon_aoi=phoenix_aoi(),
+                start_date=STUDY_DATE,
+                start_time=STUDY_HOUR,
+                filter_type=1,
+                granularity=GRANULARITY_M,
+                analytic_type="tcm",
+                wait=True,
+                timeout=40,
+                verbose=False
+            )
+            tiles, _ = parse_heatmap(payload)
+            mean_c = sum(t.t2m for t in tiles) / len(tiles)
+            print(f"LIVE fetch successful! Mean = {mean_c}")
+            return mean_c
+    except Exception as e:
+        print(f"Live FortyGuard API failed ({e}). Falling back to cache.")
+
     path = DATA / "phoenix_heatmap.json"
     if path.exists():
+        print("Using CACHED FortyGuard heatmap.")
         tiles, _ = parse_heatmap(json.loads(path.read_text()))
         return sum(t.t2m for t in tiles) / len(tiles)
     return 39.69

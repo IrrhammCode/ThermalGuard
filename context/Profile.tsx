@@ -12,6 +12,7 @@ type ProfileValue = {
   save: (next: HealthProfile) => void;
   saveDemo: () => void;
   patch: (partial: Partial<HealthProfile>) => void;
+  clear: () => void;
 };
 
 const ProfileContext = createContext<ProfileValue | null>(null);
@@ -70,6 +71,10 @@ export function ProfileProvider({ children }: PropsWithChildren) {
     [profile, save],
   );
 
+  const clear = useCallback(() => {
+    write(null);
+  }, [write]);
+
   const value = useMemo<ProfileValue>(
     () => ({
       profile,
@@ -77,8 +82,9 @@ export function ProfileProvider({ children }: PropsWithChildren) {
       save,
       saveDemo,
       patch,
+      clear,
     }),
-    [profile, loading, save, saveDemo, patch],
+    [profile, loading, save, saveDemo, patch, clear],
   );
 
   return <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>;

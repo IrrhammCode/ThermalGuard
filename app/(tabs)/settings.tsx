@@ -16,7 +16,7 @@ import {
 import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 function joinLabels<T extends string>(ids: T[], options: { id: T; label: string }[]): string {
@@ -29,7 +29,7 @@ export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const { session, signOut } = useAuth();
-  const { profile } = useProfile();
+  const { profile, clear } = useProfile();
   const triage = profile ? triageProfile(profile) : null;
 
   const initials = (session?.name || 'O')
@@ -194,15 +194,37 @@ export default function SettingsScreen() {
 
         {/* ── Sign Out ── */}
         <FadeInView delay={260}>
-          <Pressable
-            onPress={() => {
-              void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              signOut();
-            }}
-            style={styles.signOut}>
-            <Icon name="rectangle.portrait.and.arrow.right" size={16} color={colors.heat} />
-            <Text style={styles.signOutText}>Sign out</Text>
-          </Pressable>
+          <View style={styles.actionRow}>
+            <Pressable
+              onPress={() => {
+                Alert.alert('Wipe Profile', 'Are you sure you want to delete your health profile?', [
+                  { text: 'Cancel', style: 'cancel' },
+                  {
+                    text: 'Wipe & Sign Out',
+                    style: 'destructive',
+                    onPress: () => {
+                      void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+                      clear();
+                      signOut();
+                    },
+                  },
+                ]);
+              }}
+              style={[styles.signOut, { borderColor: colors.border, backgroundColor: 'transparent' }]}>
+              <Icon name="trash" size={16} color={colors.muted} />
+              <Text style={[styles.signOutText, { color: colors.muted }]}>Wipe Data</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={() => {
+                void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                signOut();
+              }}
+              style={styles.signOut}>
+              <Icon name="rectangle.portrait.and.arrow.right" size={16} color={colors.heat} />
+              <Text style={styles.signOutText}>Sign out</Text>
+            </Pressable>
+          </View>
         </FadeInView>
       </ScrollView>
     </View>
@@ -355,15 +377,19 @@ const styles = StyleSheet.create({
   },
   versionText: { color: colors.border, fontSize: 11, fontWeight: '600' },
 
-  // ── Sign Out ──
-  signOut: {
+  // ── Actions ──
+  actionRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 12,
     marginTop: 20,
-    alignSelf: 'center',
+  },
+  signOut: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
     paddingVertical: 14,
-    paddingHorizontal: 28,
+    paddingHorizontal: 24,
     borderRadius: 14,
     borderWidth: 1,
     borderColor: 'rgba(255,107,53,0.25)',
