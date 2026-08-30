@@ -302,7 +302,7 @@ export default function WalkScreen() {
       )}
 
       {phase === 'pick' ? (
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        <KeyboardAvoidingView style={{ flex: 1, zIndex: 10 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <ScrollView
             contentContainerStyle={{
               paddingTop: insets.top + 12,
@@ -852,8 +852,8 @@ const styles = StyleSheet.create({
   title: { color: colors.text, fontSize: 24, fontWeight: '700', marginTop: 4 },
   deck: { color: colors.muted, fontSize: 13, lineHeight: 20, marginTop: 12 },
   pathLine: { color: colors.text, fontSize: 14, fontWeight: '600', marginTop: 8 },
-  top: { position: 'absolute', top: 0, left: 0, right: 0, paddingHorizontal: 16, paddingBottom: 28 },
-  sheet: { position: 'absolute', left: 12, right: 12, bottom: 12 },
+  top: { position: 'absolute', top: 0, left: 0, right: 0, paddingHorizontal: 16, paddingBottom: 28, zIndex: 10 },
+  sheet: { position: 'absolute', left: 12, right: 12, bottom: 12, zIndex: 10 },
   sheetGlass: { padding: 14, borderRadius: 20 },
   loadRow: { flexDirection: 'row', gap: 10, alignItems: 'flex-start' },
   stats: { flexDirection: 'row', gap: 8, marginBottom: 10 },
