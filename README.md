@@ -14,6 +14,19 @@
 
 ---
 
+## 🔗 Live Demo
+
+| Platform | URL |
+|----------|-----|
+| 🌐 **Web App** | [thermal-guard-one.vercel.app](https://thermal-guard-one.vercel.app/) |
+| ⚙️ **API Backend** | [thermalguard-api-6b9168012334.herokuapp.com](https://thermalguard-api-6b9168012334.herokuapp.com/) |
+| 📱 **Mobile (Expo Go)** | Scan QR via `npx expo start --tunnel` or [EAS Dashboard](https://expo.dev/accounts/irrhammhmz/projects/ata2) |
+| 📦 **Source Code** | [github.com/IrrhammCode/ThermalGuard](https://github.com/IrrhammCode/ThermalGuard) |
+
+> **Try it now →** Open the web app link on any browser. For the full native experience (Apple Maps thermal overlay), use Expo Go on iOS.
+
+---
+
 ## ⏱️ How ThermalGuard Works in 10 Seconds
 
 ThermalGuard orchestrates **3 specialized AI agents** into a real-time decision loop:
@@ -193,8 +206,9 @@ ThermalGuard is built for the **AI Agent** track of FortyGuard Hackathon '26. He
 | Layer | Technology |
 |-------|-----------|
 | Mobile | React Native + Expo SDK 57, expo-router, react-native-maps |
+| Web | Expo Web (React Native Web) — deployed on **Vercel** |
 | Auth | Supabase (Google OAuth) + expo-secure-store |
-| Backend | Python FastAPI + Uvicorn |
+| Backend | Python FastAPI + Uvicorn — deployed on **Heroku** |
 | AI | Groq LLM (Llama) with structured tool-calling |
 | Data Source | FortyGuard API — live 2 m air temperature grid |
 | Map Tiles | Google Maps + custom thermal overlay |
