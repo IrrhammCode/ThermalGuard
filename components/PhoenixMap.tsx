@@ -84,6 +84,7 @@ const PhoenixMap = forwardRef<MapHandle, PhoenixMapProps>(function PhoenixMap(
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const layersRef = useRef<L.LayerGroup | null>(null);
+  const walkerRef = useRef<L.Marker | null>(null);
 
   useImperativeHandle(ref, () => ({
     fitToCoordinates: (coords: any[], opts: any) => {
@@ -177,13 +178,7 @@ const PhoenixMap = forwardRef<MapHandle, PhoenixMapProps>(function PhoenixMap(
       }).addTo(group);
     }
 
-    // Walker marker
-    if (walker) {
-      L.marker([walker.latitude, walker.longitude], {
-        icon: emojiIcon('🚶', colors.cool2),
-        title: 'You',
-      }).addTo(group);
-    }
+
 
     // Trap marker
     if (trap) {
@@ -202,7 +197,28 @@ const PhoenixMap = forwardRef<MapHandle, PhoenixMapProps>(function PhoenixMap(
         .bindPopup(`<b>${r.name}</b><br/>${r.indoor ? 'Indoor AC' : 'Park'}`)
         .addTo(group);
     }
-  }, [overlay, tiles, heatMin, heatMax, colorKey, coolCoords, fastCoords, emphasize, origin, dest, walker, trap, refuges]);
+  }, [overlay, tiles, heatMin, heatMax, colorKey, coolCoords, fastCoords, emphasize, origin, dest, trap, refuges]);
+
+  // ── Sync dynamic walker (runs 60fps without clearing map) ───────────────
+  useEffect(() => {
+    if (!mapRef.current) return;
+    if (walker) {
+      if (!walkerRef.current) {
+        walkerRef.current = L.marker([walker.latitude, walker.longitude], {
+          icon: emojiIcon('🚶', colors.cool2),
+          title: 'You',
+          zIndexOffset: 1000,
+        }).addTo(mapRef.current);
+      } else {
+        walkerRef.current.setLatLng([walker.latitude, walker.longitude]);
+      }
+    } else {
+      if (walkerRef.current) {
+        walkerRef.current.remove();
+        walkerRef.current = null;
+      }
+    }
+  }, [walker]);
 
   return (
     <div
