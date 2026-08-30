@@ -1,0 +1,93 @@
+{
+  "ok": true,
+  "problem": {
+    "spread_c": 1.7466985859688435,
+    "n_tiles": 63,
+    "min_c": 44.93816950033803,
+    "max_c": 46.68486808630687,
+    "mean_c": 46.10358991760419,
+    "park_c": 44.88680225450214,
+    "station_c": 45.60845439961333,
+    "lots_c": 46.62976564726152,
+    "trap_delta_c": 1.7429633927593784,
+    "spatial_signal": true,
+    "hidden_trap": true
+  },
+  "solution": {
+    "trips_tested": 3,
+    "cool_wins": 2,
+    "holds": true,
+    "trips": [
+      {
+        "id": "shade-park",
+        "label": "Convention Center \u2192 Civic Space Park",
+        "paths_split": true,
+        "cool_min": 12.41,
+        "fast_min": 12.41,
+        "cool_mean_c": 45.866,
+        "fast_mean_c": 45.896,
+        "cool_peak_c": 46.657,
+        "fast_peak_c": 46.657,
+        "cool_dose": 569.28,
+        "fast_dose": 569.77,
+        "mean_delta_c": 0.03,
+        "dose_delta": 0.48,
+        "solution_holds": true
+      },
+      {
+        "id": "hold-zone",
+        "label": "Van Buren Station \u2192 Arizona Center",
+        "paths_split": false,
+        "cool_min": 5.1,
+        "fast_min": 5.1,
+        "cool_mean_c": 45.988,
+        "fast_mean_c": 45.988,
+        "cool_peak_c": 46.224,
+        "fast_peak_c": 46.224,
+        "cool_dose": 234.33,
+        "fast_dose": 234.33,
+        "mean_delta_c": 0.0,
+        "dose_delta": 0.0,
+        "solution_holds": false
+      },
+      {
+        "id": "roosevelt",
+        "label": "CityScape \u2192 Roosevelt Row",
+        "paths_split": true,
+        "cool_min": 16.17,
+        "fast_min": 16.17,
+        "cool_mean_c": 45.709,
+        "fast_mean_c": 45.874,
+        "cool_peak_c": 46.55,
+        "fast_peak_c": 46.55,
+        "cool_dose": 739.57,
+        "fast_dose": 741.6,
+        "mean_delta_c": 0.165,
+        "dose_delta": 2.03,
+        "solution_holds": true
+      }
+    ]
+  },
+  "samples": {
+    "civic_space_park": {
+      "name": "Civic Space Park (canopy)",
+      "c": 44.887
+    },
+    "vanburen_central": {
+      "name": "Van Buren / Central Station (exposed platform)",
+      "c": 45.608
+    },
+    "chase_lots": {
+      "name": "Chase Field parking (asphalt)",
+      "c": 46.63
+    },
+    "arizona_center": {
+      "name": "Arizona Center (plaza / AC edge)",
+      "c": 46.253
+    },
+    "convention_center": {
+      "name": "Phoenix Convention Center",
+      "c": 46.686
+    }
+  }
+}

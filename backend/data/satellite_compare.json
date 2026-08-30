@@ -1,0 +1,17 @@
+[
+  {
+    "id": "civic_space_park",
+    "name": "Civic Space Park (canopy)",
+    "segments": {}
+  },
+  {
+    "id": "vanburen_central",
+    "name": "Van Buren / Central Station (exposed platform)",
+    "segments": {}
+  },
+  {
+    "id": "chase_lots",
+    "name": "Chase Field parking (asphalt)",
+    "segments": {}
+  }
+]

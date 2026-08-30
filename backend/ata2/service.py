@@ -57,7 +57,7 @@ def _samples_from_cache() -> list[tuple[float, float, float]]:
     if samples:
         return samples
     fixture = json.loads(FIXTURE.read_text())
-    return [(s["lat"], s["lon"], s["veg"]) for s in fixture["samples"]]
+    return [(float(s["lat"]), float(s["lon"]), float(s["veg"])) for s in fixture["samples"]]
 
 
 @lru_cache(maxsize=1)
