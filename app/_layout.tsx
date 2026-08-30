@@ -83,7 +83,7 @@ function WebFrame({ children }: { children: React.ReactNode }) {
     <View style={wf.outer}>
       {/* Left branding panel */}
       <View style={wf.brand}>
-        <Text style={wf.brandTitle}>ATA²</Text>
+        <Text style={wf.brandTitle}>ThermalGuard</Text>
         <Text style={wf.brandSub}>Adaptive Thermal Advisor</Text>
         <View style={wf.divider} />
         <Text style={wf.brandDesc}>
@@ -93,7 +93,7 @@ function WebFrame({ children }: { children: React.ReactNode }) {
         </Text>
         <View style={wf.badgeRow}>
           <View style={wf.badge}><Text style={wf.badgeText}>FortyGuard API</Text></View>
-          <View style={wf.badge}><Text style={wf.badgeText}>Gemini AI</Text></View>
+          <View style={wf.badge}><Text style={wf.badgeText}>Llama 3 AI</Text></View>
           <View style={wf.badge}><Text style={wf.badgeText}>React Native</Text></View>
         </View>
       </View>
