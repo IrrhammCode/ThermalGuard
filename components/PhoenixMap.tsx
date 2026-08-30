@@ -8,7 +8,7 @@ import { heatColor } from '@/lib/heat';
 import L from 'leaflet';
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 
-// ── Inject Leaflet CSS into <head> once ──────────────────────────────────────
+// ── Inject Leaflet CSS and Dark Mode Filter into <head> once ─────────────────
 let cssInjected = false;
 function ensureLeafletCSS() {
   if (cssInjected) return;
@@ -17,12 +17,23 @@ function ensureLeafletCSS() {
   link.rel = 'stylesheet';
   link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
   document.head.appendChild(link);
+
+  const style = document.createElement('style');
+  style.innerHTML = `
+    /* Invert colors to create a free dark mode from standard OSM tiles */
+    .leaflet-layer,
+    .leaflet-control-zoom-in,
+    .leaflet-control-zoom-out,
+    .leaflet-control-attribution {
+      filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+    }
+  `;
+  document.head.appendChild(style);
 }
 
-// ── Dark tile layer (CartoDB Dark Matter — free, no key) ─────────────────────
-const DARK_TILES = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
-const DARK_ATTR =
-  '&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://osm.org/copyright">OSM</a>';
+// ── Default OSM tiles (100% free, no key) ────────────────────────────────────
+const OSM_TILES = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+const OSM_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 // ── Simple circle marker icon builder ────────────────────────────────────────
 function circleIcon(color: string, size = 14): L.DivIcon {
@@ -96,7 +107,7 @@ const PhoenixMap = forwardRef<MapHandle, PhoenixMapProps>(function PhoenixMap(
       attributionControl: true,
     });
 
-    L.tileLayer(DARK_TILES, { attribution: DARK_ATTR, maxZoom: 19 }).addTo(map);
+    L.tileLayer(OSM_TILES, { attribution: OSM_ATTR, maxZoom: 19 }).addTo(map);
     layersRef.current = L.layerGroup().addTo(map);
     mapRef.current = map;
 
