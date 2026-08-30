@@ -1,0 +1,110 @@
+{
+  "city": "Phoenix, AZ",
+  "study_date": "2024-07-15",
+  "study_hour": "14:00",
+  "air_c": 39.6858,
+  "air_spread_c": 0.1372,
+  "n_tiles": 350,
+  "samples": [
+    {
+      "tag": "arizona_center",
+      "lat": "33.4528",
+      "lon": "-112.0696",
+      "veg": 0.0618,
+      "segments": {
+        "building": 90.79,
+        "tree": 2.66,
+        "road, route": 3.01,
+        "plant": 3.52,
+        "others": 0.02
+      }
+    },
+    {
+      "tag": "chase_lots",
+      "lat": "33.4466",
+      "lon": "-112.0688",
+      "veg": 0.008,
+      "segments": {
+        "building": 23.71,
+        "tree": 0.8,
+        "mountain, mount": 17.3,
+        "sea": 0.78,
+        "sand": 2.84,
+        "others": 54.57
+      }
+    },
+    {
+      "tag": "cityscape",
+      "lat": "33.4476",
+      "lon": "-112.0739",
+      "veg": 0.0,
+      "segments": {
+        "building": 99.54,
+        "others": 0.46
+      }
+    },
+    {
+      "tag": "civic_space_park",
+      "lat": "33.454",
+      "lon": "-112.0742",
+      "veg": 0.257,
+      "segments": {
+        "building": 74.31,
+        "tree": 16.38,
+        "grass": 7.56,
+        "plant": 1.76
+      }
+    },
+    {
+      "tag": "convention_center",
+      "lat": "33.4485",
+      "lon": "-112.0711",
+      "veg": 0.0,
+      "segments": {
+        "building": 99.99,
+        "others": 0.01
+      }
+    },
+    {
+      "tag": "exceedance_coolest",
+      "lat": "33.45845",
+      "lon": "-112.07719",
+      "veg": 0.1372,
+      "segments": {
+        "building": 47.77,
+        "tree": 10.69,
+        "road, route": 36.43,
+        "grass": 3.03,
+        "sidewalk, pavement": 1.35,
+        "others": 0.73
+      }
+    },
+    {
+      "tag": "exceedance_hottest",
+      "lat": "33.44818",
+      "lon": "-112.07706",
+      "veg": 0.0056,
+      "segments": {
+        "building": 97.32,
+        "road, route": 1.5,
+        "grass": 0.56,
+        "others": 0.62
+      }
+    },
+    {
+      "tag": "roosevelt_central",
+      "lat": "33.45875",
+      "lon": "-112.074",
+      "veg": 0.0674,
+      "segments": {
+        "building": 41.91,
+        "road, route": 38.94,
+        "sidewalk, pavement": 2.5,
+        "earth, ground": 1.27,
+        "plant": 6.74,
+        "car": 3.03,
+        "others": 5.62
+      }
+    }
+  ]
+}
