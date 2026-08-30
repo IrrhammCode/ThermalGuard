@@ -198,26 +198,6 @@ export default function WelcomeScreen() {
 
         <FadeInView delay={160} from="up">
           <Glass style={styles.panel}>
-            {appleOk ? (
-              <AppleAuthentication.AppleAuthenticationButton
-                buttonType={AppleAuthentication.AppleAuthenticationButtonType.CONTINUE}
-                buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.WHITE}
-                cornerRadius={12}
-                style={styles.appleNative}
-                onPress={() => {
-                  if (!busy) void onApple();
-                }}
-              />
-            ) : (
-              <AuthButton
-                label="Continue with Apple"
-                variant="apple"
-                icon="apple.logo"
-                loading={busy === 'apple'}
-                onPress={onApple}
-              />
-            )}
-
             <AuthButton
               label="Continue with Google"
               variant="google"
