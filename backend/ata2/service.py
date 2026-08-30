@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 import os
-from functools import lru_cache
 from pathlib import Path
 
 from ata2.agents import run_swarm
@@ -32,39 +31,26 @@ FIXTURE = Path(__file__).resolve().parent.parent / "fixtures" / "hybrid_samples.
 
 
 def _air_mean() -> float:
-    try:
-        from fortyguard.client import FortyGuardClient
-        from ata2.phoenix import phoenix_aoi, STUDY_DATE, STUDY_HOUR, GRANULARITY_M
-        import os
-        
-        # Avoid blocking Expo Go testing if no API key is set
-        if os.getenv("FORTYGUARD_API_KEY"):
-            client = FortyGuardClient()
-            print("Fetching LIVE heatmap from FortyGuard...")
-            payload = client.create_heatmap(
-                polygon_aoi=phoenix_aoi(),
-                start_date=STUDY_DATE,
-                start_time=STUDY_HOUR,
-                filter_type=1,
-                granularity=GRANULARITY_M,
-                analytic_type="tcm",
-                wait=True,
-                timeout=40,
-                verbose=False
-            )
-            tiles, _ = parse_heatmap(payload)
-            mean_c = sum(t.t2m for t in tiles) / len(tiles)
-            print(f"LIVE fetch successful! Mean = {mean_c}")
-            return mean_c
-    except Exception as e:
-        print(f"Live FortyGuard API failed ({e}). Falling back to cache.")
+    from fortyguard.client import FortyGuardClient
+    from ata2.phoenix import phoenix_aoi, STUDY_DATE, STUDY_HOUR, GRANULARITY_M
 
-    path = DATA / "phoenix_heatmap.json"
-    if path.exists():
-        print("Using CACHED FortyGuard heatmap.")
-        tiles, _ = parse_heatmap(json.loads(path.read_text()))
-        return sum(t.t2m for t in tiles) / len(tiles)
-    return 39.69
+    client = FortyGuardClient()
+    print("🔴 Fetching LIVE heatmap from FortyGuard API...")
+    payload = client.create_heatmap(
+        polygon_aoi=phoenix_aoi(),
+        start_date=STUDY_DATE,
+        start_time=STUDY_HOUR,
+        filter_type=1,
+        granularity=GRANULARITY_M,
+        analytic_type="tcm",
+        wait=True,
+        timeout=60,
+        verbose=True
+    )
+    tiles, _ = parse_heatmap(payload)
+    mean_c = sum(t.t2m for t in tiles) / len(tiles)
+    print(f"✅ LIVE fetch successful! {len(tiles)} tiles, mean = {mean_c:.2f}°C")
+    return mean_c
 
 
 def _samples_from_cache() -> list[tuple[float, float, float]]:
@@ -88,9 +74,14 @@ def _samples_from_cache() -> list[tuple[float, float, float]]:
     return [(float(s["lat"]), float(s["lon"]), float(s["veg"])) for s in fixture["samples"]]
 
 
-@lru_cache(maxsize=1)
+# Cache field after first successful live fetch (one API call per server boot)
+_cached_field: HybridField | None = None
+
 def field() -> HybridField:
-    return HybridField(_air_mean(), _samples_from_cache())
+    global _cached_field
+    if _cached_field is None:
+        _cached_field = HybridField(_air_mean(), _samples_from_cache())
+    return _cached_field
 
 
 def now(lat: float, lon: float) -> dict:
