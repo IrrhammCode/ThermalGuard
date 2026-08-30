@@ -198,37 +198,33 @@ export default function WelcomeScreen() {
 
         <FadeInView delay={160} from="up">
           <Glass style={styles.panel}>
-            {Platform.OS !== 'web' && (
-              <>
-                {appleOk ? (
-                  <AppleAuthentication.AppleAuthenticationButton
-                    buttonType={AppleAuthentication.AppleAuthenticationButtonType.CONTINUE}
-                    buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.WHITE}
-                    cornerRadius={12}
-                    style={styles.appleNative}
-                    onPress={() => {
-                      if (!busy) void onApple();
-                    }}
-                  />
-                ) : (
-                  <AuthButton
-                    label="Continue with Apple"
-                    variant="apple"
-                    icon="apple.logo"
-                    loading={busy === 'apple'}
-                    onPress={onApple}
-                  />
-                )}
-
-                <AuthButton
-                  label="Continue with Google"
-                  variant="google"
-                  icon="g.circle.fill"
-                  loading={busy === 'google'}
-                  onPress={onGoogle}
-                />
-              </>
+            {appleOk ? (
+              <AppleAuthentication.AppleAuthenticationButton
+                buttonType={AppleAuthentication.AppleAuthenticationButtonType.CONTINUE}
+                buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.WHITE}
+                cornerRadius={12}
+                style={styles.appleNative}
+                onPress={() => {
+                  if (!busy) void onApple();
+                }}
+              />
+            ) : (
+              <AuthButton
+                label="Continue with Apple"
+                variant="apple"
+                icon="apple.logo"
+                loading={busy === 'apple'}
+                onPress={onApple}
+              />
             )}
+
+            <AuthButton
+              label="Continue with Google"
+              variant="google"
+              icon="g.circle.fill"
+              loading={busy === 'google'}
+              onPress={onGoogle}
+            />
 
             <Link href="./sign-in" asChild>
               <Pressable style={styles.emailBtn} onPress={() => Haptics.selectionAsync()}>
